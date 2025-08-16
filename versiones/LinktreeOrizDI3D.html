@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ortiz.impresion3d - Linktree</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .wave-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .profile-section {
+            margin-bottom: 40px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .turtle-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .username {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+
+        .location {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .link-button {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 25px;
+            padding: 18px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .link-button .dots {
+            color: #666;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .join-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 15px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .join-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Configuración para URLs - Oculto por defecto */
+        .config-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            display: none;
+        }
+
+        .config-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .config-panel h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .config-panel input {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .config-panel label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .username {
+                font-size: 22px;
+            }
+            
+            .bio {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wave-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="waveGradient1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fff"/>
+                    <stop offset="100%" stop-color="#222"/>
+                </linearGradient>
+                <linearGradient id="waveGradient2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#eee"/>
+                    <stop offset="100%" stop-color="#444"/>
+                </linearGradient>
+                <linearGradient id="waveGradient3" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#bbb"/>
+                    <stop offset="100%" stop-color="#000"/>
+                </linearGradient>
+            </defs>
+            <path d="M0,300 Q480,400 960,300 T1920,300 V1080 H0 Z" fill="url(#waveGradient1)" opacity="0.7"/>
+            <path d="M0,500 Q480,600 960,500 T1920,500 V1080 H0 Z" fill="url(#waveGradient2)" opacity="0.5"/>
+            <path d="M0,700 Q480,800 960,700 T1920,700 V1080 H0 Z" fill="url(#waveGradient3)" opacity="0.4"/>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="profile-section">
+            <div class="profile-image">
+                <div class="turtle-icon"><img src="logo odi3d.png" alt=""></div>
+            </div>
+            <h1 class="username">Ortiz Diseño e Impresión 3D</h1>
+            <p class="bio">Damos vida a tus ideas con impresión 3D<br>en Aguachica 🏠✨ Prototipos y más!</p>
+        </div>
+
+        <div class="links-section">
+            <a href="https://www.instagram.com/ortiz.impresion3d/" class="link-button" id="instagramLink">
+                <span>Instagram</span>
+                <span class="dots">⋯</span>
+            </a>
+            
+            <a href="https://wa.me/3147889080" class="link-button" id="whatsappLink">
+                <span>WhatsApp</span>
+                <span class="dots">⋯</span>
+            </a>
+            
+            <a href="https://www.facebook.com/profile.php?id=61579582671591" class="link-button" id="facebookLink">
+                <span>Facebook</span>
+                <span class="dots">⋯</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Animación de olas SVG
+        function animateWaves() {
+            const svg = document.querySelector('.wave-bg svg');
+            if (!svg) return;
+            const paths = svg.querySelectorAll('path');
+            let t = 0;
+            function waveY(base, amp, freq, phase) {
+                return base + Math.sin(t * freq + phase) * amp;
+            }
+            function update() {
+                t += 0.02;
+                // Olas animadas con diferentes parámetros
+                const d1 = `M0,${waveY(300,20,1,0)} Q480,${waveY(400,30,1.2,0.5)} 960,${waveY(300,20,1.1,1)} T1920,${waveY(300,20,1,2)} V1080 H0 Z`;
+                const d2 = `M0,${waveY(500,25,0.8,1)} Q480,${waveY(600,35,1.1,1.5)} 960,${waveY(500,25,0.9,2)} T1920,${waveY(500,25,0.8,3)} V1080 H0 Z`;
+                const d3 = `M0,${waveY(700,30,0.6,2)} Q480,${waveY(800,40,1.0,2.5)} 960,${waveY(700,30,0.7,3)} T1920,${waveY(700,30,0.6,4)} V1080 H0 Z`;
+                if(paths[0]) paths[0].setAttribute('d', d1);
+                if(paths[1]) paths[1].setAttribute('d', d2);
+                if(paths[2]) paths[2].setAttribute('d', d3);
+                requestAnimationFrame(update);
+            }
+            update();
+        }
+        window.addEventListener('DOMContentLoaded', animateWaves);
+
+        // URLs almacenadas en variables JavaScript (reemplaza localStorage)
+        let urls = {
+            instagram: '',
+            whatsapp: '',
+            facebook: '',
+            linktree: ''
+        };
+
+        function toggleConfig() {
+            const panel = document.getElementById('configPanel');
+            panel.style.display = panel.style.display === 'none' || panel.style.display === '' ? 'block' : 'none';
+        }
+
+        function updateLink(platform, url) {
+            urls[platform] = url;
+            const linkElement = document.getElementById(platform + 'Link');
+            if (linkElement) {
+                linkElement.href = url || '#';
+                // Cambiar estilo si tiene URL configurada
+                if (url) {
+                    linkElement.style.opacity = '1';
+                } else {
+                    linkElement.style.opacity = '0.7';
+                }
+            }
+        }
+
+        // Manejar clics en enlaces sin URL configurada
+        document.querySelectorAll('.link-button, .join-button').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.href === window.location.href + '#' || this.href === '#') {
+                    e.preventDefault();
+                    alert('Por favor, configura la URL para este enlace usando el botón de configuración ⚙️');
+                }
+            });
+        });
+
+        // Inicializar opacidad de enlaces
+        document.querySelectorAll('.link-button, .join-button').forEach(link => {
+            if (!link.href || link.href === window.location.href + '#') {
+                link.style.opacity = '0.7';
+            }
+        });
+    </script>
+</body>
+</html>
