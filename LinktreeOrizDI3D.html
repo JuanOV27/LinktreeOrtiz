@@ -202,6 +202,19 @@
                 font-size: 15px;
             }
         }
+            /* Tortuga nadando de fondo */
+            .turtle-bg {
+                position: fixed;
+                left: -300px;
+                bottom: 10%;
+                width: 200px;
+                height: 160px;
+                z-index: 0;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.8s, transform 8s linear;
+                filter: grayscale(1);
+            }
     </style>
 </head>
 <body>
@@ -250,9 +263,17 @@
                 <span>Facebook</span>
                 <span class="dots">⋯</span>
             </a>
+
+            <a href="https://whatsapp.com/channel/0029Vb6DFRh1NCrRbP20IZ3E" class="link-button" id="linktreeLink">
+                <span>Canal de WhatsApp</span>
+                <span class="dots">⋯</span>
+            </a>
         </div>
 
     </div>
+
+        <!-- Tortuga nadando de fondo -->
+        <img src="turtle.gif" alt="Tortuga nadando" class="turtle-bg" id="turtleBg">
 
     <script>
         // Animación de olas SVG
@@ -322,6 +343,50 @@
                 link.style.opacity = '0.7';
             }
         });
+            // Animación de la tortuga nadando cada 30 segundos
+            function animateTurtle() {
+                const turtle = document.getElementById('turtleBg');
+                if (!turtle) return;
+                // Dirección aleatoria: true = izquierda a derecha, false = derecha a izquierda
+                const leftToRight = Math.random() > 0.5;
+                // Altura aleatoria entre 5% y 60%
+                const randomBottom = Math.floor(Math.random() * 55) + 5;
+                // Reset estilos
+                turtle.style.transition = 'none';
+                turtle.style.opacity = '0';
+                turtle.style.transform = 'none';
+                turtle.style.bottom = randomBottom + '%';
+                if (leftToRight) {
+                    turtle.style.left = '-300px';
+                    turtle.style.right = '';
+                    turtle.style.transform = 'scaleX(1)';
+                } else {
+                    turtle.style.left = '';
+                    turtle.style.right = '-300px';
+                    turtle.style.transform = 'scaleX(-1)'; // Voltea la tortuga
+                }
+                setTimeout(() => {
+                    turtle.style.transition = 'opacity 0.8s, transform 8s linear, left 8s linear, right 8s linear, bottom 0.8s';
+                    turtle.style.opacity = '1';
+                    if (leftToRight) {
+                        turtle.style.left = 'calc(100vw + 300px)';
+                    } else {
+                        turtle.style.right = 'calc(100vw + 300px)';
+                    }
+                    // Ocultar después de nadar
+                    setTimeout(() => {
+                        turtle.style.opacity = '0';
+                        turtle.style.left = leftToRight ? '-300px' : '';
+                        turtle.style.right = leftToRight ? '' : '-300px';
+                    }, 8000); // 8 segundos nadando
+                }, 100);
+            }
+            // Ejecutar cada 30 segundos
+            setInterval(animateTurtle, 30000);
+            // Ejecutar al cargar
+            window.addEventListener('DOMContentLoaded', () => {
+                setTimeout(animateTurtle, 1000);
+            });
     </script>
 </body>
 </html>
