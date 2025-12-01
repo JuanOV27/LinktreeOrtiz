@@ -104,6 +104,25 @@
             cursor: pointer;
         }
 
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .link-icon {
+            display: flex;
+            align-items: center;
+            width: 28px;
+            height: 28px;
+        }
+
+        .link-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         .link-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -114,6 +133,105 @@
             color: #666;
             font-size: 18px;
             font-weight: bold;
+        }
+
+        /* Menú desplegable */
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-button {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 25px;
+            padding: 18px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .dropdown-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .dropdown-arrow {
+            color: #666;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 5px;
+        }
+
+        .dropdown-menu.active {
+            max-height: 400px;
+        }
+
+        .dropdown-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 20px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #444;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .dropdown-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            background: white;
+        }
+
+        .dropdown-item .dots {
+            color: #888;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .dropdown-item-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-icon {
+            display: flex;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .dropdown-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .join-button {
@@ -250,24 +368,74 @@
 
         <div class="links-section">
             <a href="https://www.instagram.com/ortiz.impresion3d/" class="link-button" id="instagramLink">
-                <span>Instagram</span>
+                <div class="link-content">
+                    <span class="link-icon"><img src="recursos/instagram.png" alt="Instagram"></span>
+                    <span>Instagram</span>
+                </div>
                 <span class="dots">⋯</span>
             </a>
-            
+
             <a href="https://wa.me/3147889080" class="link-button" id="whatsappLink">
-                <span>WhatsApp</span>
+                <div class="link-content">
+                    <span class="link-icon"><img src="recursos/whatssapp.png" alt="WhatsApp"></span>
+                    <span>WhatsApp</span>
+                </div>
                 <span class="dots">⋯</span>
             </a>
-            
+
             <a href="https://www.facebook.com/profile.php?id=61579582671591" class="link-button" id="facebookLink">
-                <span>Facebook</span>
+                <div class="link-content">
+                    <span class="link-icon"><img src="recursos/facebook.png" alt="Facebook"></span>
+                    <span>Facebook</span>
+                </div>
                 <span class="dots">⋯</span>
             </a>
 
             <a href="https://whatsapp.com/channel/0029Vb6DFRh1NCrRbP20IZ3E" class="link-button" id="linktreeLink">
-                <span>Canal de WhatsApp</span>
+                <div class="link-content">
+                    <span class="link-icon"><img src="recursos/canal_whatssapp.png" alt="Canal de WhatsApp"></span>
+                    <span>Canal de WhatsApp</span>
+                </div>
                 <span class="dots">⋯</span>
             </a>
+
+            <!-- Menú desplegable de Modelos 3D -->
+            <div class="dropdown-container">
+                <button class="dropdown-button" onclick="toggleDropdown()">
+                    <span>Modelos 3D</span>
+                    <span class="dropdown-arrow" id="dropdownArrow">▼</span>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="https://makerworld.com/" class="dropdown-item" target="_blank">
+                        <div class="dropdown-item-content">
+                            <span class="dropdown-icon"><img src="recursos/makerworld.png" alt="Maker World"></span>
+                            <span>Maker World</span>
+                        </div>
+                        <span class="dots">⋯</span>
+                    </a>
+                    <a href="https://cults3d.com/" class="dropdown-item" target="_blank">
+                        <div class="dropdown-item-content">
+                            <span class="dropdown-icon"><img src="recursos/cults3d.png" alt="Cults"></span>
+                            <span>Cults</span>
+                        </div>
+                        <span class="dots">⋯</span>
+                    </a>
+                    <a href="https://www.thingiverse.com/" class="dropdown-item" target="_blank">
+                        <div class="dropdown-item-content">
+                            <span class="dropdown-icon"><img src="recursos/thingiverse.png" alt="Thingiverse"></span>
+                            <span>Thingiverse</span>
+                        </div>
+                        <span class="dots">⋯</span>
+                    </a>
+                    <a href="https://www.printables.com/" class="dropdown-item" target="_blank">
+                        <div class="dropdown-item-content">
+                            <span class="dropdown-icon"><img src="recursos/printables.png" alt="Printables"></span>
+                            <span>Printables</span>
+                        </div>
+                        <span class="dots">⋯</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -276,6 +444,14 @@
         <img src="turtle.gif" alt="Tortuga nadando" class="turtle-bg" id="turtleBg">
 
     <script>
+        // Función para toggle del menú desplegable
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            menu.classList.toggle('active');
+            arrow.classList.toggle('active');
+        }
+
         // Animación de olas SVG
         function animateWaves() {
             const svg = document.querySelector('.wave-bg svg');
